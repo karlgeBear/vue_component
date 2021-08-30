@@ -2,9 +2,9 @@
 <!-- 组件对象中找数据：找组件对象（小的vm） -->
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header/>
-      <List/>
-      <Footer/>
+      <Header :addtodo="addtodo"/>
+      <List :todos="todos" :deletetodo="deletetodo"/>
+      <Footer :todos="todos" :checkAll="checkAll" :clearChecked="clearChecked"/>
     </div>
   </div>
 
@@ -18,7 +18,30 @@ import List from '@/components/List.vue'
 import Footer from '@/components/Footer.vue'
 export default {
   methods: {  //所有的方法都会成为组件对象的方法
-
+    addtodo(value){
+      this.todos.unshift(value)
+    },
+    //click删除列表选项
+    deletetodo(index) {
+      this.todos.splice(index,1)
+    },
+    //全选和全不选
+    checkAll(isCheck){
+      this.todos.forEach(todo => todo.complete = isCheck)
+    },
+    //删除已选中的
+    clearChecked() {
+      this.todos = this.todos.filter(todo => todo.complete !== true)
+    }
+  },
+  data() {
+    return {
+      todos: [
+        {id:1, title:'吃饭', complete:false},
+        {id:2, title:'睡觉', complete:true},
+        {id:3, title:'吃敲代码', complete:false}
+      ]
+    }
   },
   components:{
     Header,
