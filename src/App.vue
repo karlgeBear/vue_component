@@ -16,6 +16,8 @@
 import Header from '@/components/Header.vue'
 import List from '@/components/List.vue'
 import Footer from '@/components/Footer.vue'
+import {saveTodos,getTodos} from './utils/storageUtils'
+//import * as storageUtils from './utils/storageUtils'
 export default {
   methods: {  //所有的方法都会成为组件对象的方法
     addtodo(value){
@@ -37,9 +39,9 @@ export default {
   data() {
     return {
       todos: [
-        {id:1, title:'吃饭', complete:false},
-        {id:2, title:'睡觉', complete:true},
-        {id:3, title:'吃敲代码', complete:false}
+        // {id:1, title:'吃饭', complete:false},
+        // {id:2, title:'睡觉', complete:true},
+        // {id:3, title:'吃敲代码', complete:false}
       ]
     }
   },
@@ -47,6 +49,25 @@ export default {
     Header,
     List,
     Footer
+  },
+  //异步读取localstorge的todos_key
+  mounted() {
+    setTimeout(() => {
+      // this.todos = JSON.parse(localStorage.getItem('todos_key')) || [] //如果没有存在之，返回的null
+      //this.todos = JSON.parse(localStorage.getItem('todos_key') || '[]')  //如果没有存在之，返回的null
+      this.todos = getTodos()
+    }, 1000)
+  },
+  watch: {
+    todos: {
+/*       handler(value){  //value是todos改变后最新的值
+        //将value以json格式存在local
+        //localStorage.setItem('todos_key',JSON.stringify(value))
+        saveTodos(value)
+      }, */
+      handler: saveTodos,
+      deep: true //深度监视
+    }
   }
 }
 </script>

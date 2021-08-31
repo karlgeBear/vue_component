@@ -16,6 +16,8 @@
         --List.vue
         --Item.vue
         --Footer.vue
+      utils
+        --storage
       index.css
       index.js
       index.html
@@ -27,7 +29,11 @@
             可以用this.xxx,
             一旦在props接收property,则直接在template中使用传过来的属性值)；
       4). 若想要从爷组件==>子组件(传递property) 则需逐层传递(也要记得接收property) 爷组件==>父组件==>子组件
+      5). 子组件想更新父组件的数据，需子组件通知父组件在父组件实施更新
 ## 6. 数据模板的来源
       1).data：自身可变数据
       2).props: 从外部接收的可变数据
       3).computed: 根据已有的data或props数据进行计算产生的数据
+## 7. localstorage
+      1).在watch中设置深度监视（deep：true）和储存要存的数据
+      2).在mounted实现异步获取储存的数据，更新数据，渲染页面
