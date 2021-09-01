@@ -1,39 +1,34 @@
-### 组件化的一个 search-addToList、list-input-check-delete、checkAll-clearChecked 的小demo
-## 1. 配置webpack
-## 2. 功能完成思维
-      1). 拆分组件
-      2). 静态组件
-      3).动态组件
-        a. 初始化动态显示
-        b. 交互
-## 3. 设计数据
-      1). 类型：[{id:1, title:"xxx", complete:false}]
-      2). 名称：todos/todoArr/todoList
-      3). 在哪个组件？看哪个组件还是那些组件使用
-## 4. demo文件结构(一下文件全在src内,用于webpack打包)
-      components
-        --Header.vue
-        --List.vue
-        --Item.vue
-        --Footer.vue
-      utils
-        --storage
-      index.css
-      index.js
-      index.html
-## 5. 核心：传入propertry 和 接收property和方法
-     1).在路口文件index.js  使用render渲染函数
-     2).在总组件(App.vue)导入其它组件,局部注册组件；使用<xxx/>渲染页面，传入data和方法；
-     3).在各拆分组件设置接收data和方法(使用props，
-            props接收的值相当于一个小vm的属性和方法,
-            可以用this.xxx,
-            一旦在props接收property,则直接在template中使用传过来的属性值)；
-      4). 若想要从爷组件==>子组件(传递property) 则需逐层传递(也要记得接收property) 爷组件==>父组件==>子组件
-      5). 子组件想更新父组件的数据，需子组件通知父组件在父组件实施更新
-## 6. 数据模板的来源
-      1).data：自身可变数据
-      2).props: 从外部接收的可变数据
-      3).computed: 根据已有的data或props数据进行计算产生的数据
-## 7. localstorage
-      1).在watch中设置深度监视（deep：true）和储存要存的数据
-      2).在mounted实现异步获取储存的数据，更新数据，渲染页面
+# 自定义事件
+### 1. 绑定时间监听
+      * 事件名(类型)：任意
+      * 回调函数：通过形参接收数据
+### 2. 触发：emit('事件名'，数据) / 分发:display  事件（编码）
+      * 事件名(类型)：与绑定监听的事件名一致
+      * 数据：会自动传递给函数
+      * 理解：
+            就是在父组件绑定数据监听(@事件名=‘回调函数’)
+            在子组件触发这个事件,emit('事件名'，数据)
+            一触发，则数据交给父组件的那个回调函数处理
+### 3、Vue的组件对象与Vue是什么关系
+      * 组件对象不是Vue的实例，它是那个VueComponent的实例
+      * 组件对象的原型对象是一个vm对象(Vue的实例对象)
+      * 在组件上读取：this.xxx
+            组件对象自身上查
+            去原型对象 vm对象上查
+            去Vue的原型对象
+      * 组件对象.__proto__ ==> vm(Vue的实例对象).__proto__ ==> Vue的原型对象
+
+      * Vue的原型对象只有一个
+      * 组件对象的原型是：每个组件对象都有自己的原型对象vm
+      * 可以在Vue的原型对象添加一个东西 ==> 所有组件对象可见
+
+      *由以上可得：
+            让任意组件对象都可见：将vm对象挂载到Vue的的原型对象上
+            写在===>入口文件(index.js) Vue.prototype.$vm = new Vue()
+            在子组件利用$.vm(this.$vm.emit())触发事件
+            在祖组件利用$.vm(this.$vm.on())绑定事件
+            在兄弟之间也可利用$.vm
+### 4、全局事件总线(global Event Bus)：$vm
+* $vm的专业名称：全局事件总线
+* 所有的组件都可见的对象($vm)
+* 所有组件都是通过它($vm)来处理的

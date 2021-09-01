@@ -6,16 +6,19 @@
 
 <script type="text/ecmascript">
 export default {
-  props: { //限定了：属性的名称/属性值的类型/属性的必要性
+/*   props: { //限定了：属性的名称/属性值的类型/属性的必要性
     addtodo: {
-      type: Function,
-      require: true
-    }
-  },
+       type: Function,
+       require: true
+     }
+   }, */
   data(){
     return { 
       title:''
     }
+  },
+  mounted(){
+    console.log('header mounted()',this)
   },
   methods: {
     add(){
@@ -31,7 +34,11 @@ export default {
         complate:false
       }
       //调用父组件的方法
-      this.addtodo(todo)
+      //this.addtodo(todo)
+
+      //分发自定义事件(向父组件传递数据，与父组件的绑定监听事件配合使用)
+      this.$emit('addtodo',todo)
+
       //搜索框清空
       this.title = ''
     }

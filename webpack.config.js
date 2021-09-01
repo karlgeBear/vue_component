@@ -71,7 +71,6 @@ module.exports = {
     port: 3000,
     hot: true  //开启热模替换：HMR--哪里修改哪里更新（css支持，html不支持）
   },
-
   //模块引入解析
   resolve: {
     /* 
@@ -83,5 +82,6 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'  //表示精准匹配
     },
     extensions: ['.js','.vue'],//指定那些后缀的模块可以省略后缀
-  }
+  },
+  devtool: 'eval-source-map'
 }

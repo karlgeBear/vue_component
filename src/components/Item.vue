@@ -17,7 +17,6 @@ export default {
     todo:{
       type: Object
     },
-    deletetodo: Function,
     index: Number
   },
   data(){
@@ -41,7 +40,9 @@ export default {
       if(!confirm('确定删除吗')){
         return
       }
-      this.deletetodo(this.index)
+      // this.deletetodo(this.index)
+      //自定义事件
+      this.$globalEventBus.$emit('deletetodo',this.index)
     }
   }
 }

@@ -1,9 +1,11 @@
 <template>
 <!-- 组件对象中找数据：找组件对象（小的vm） -->
-  <div class="todo-container">
+  <div cl:ss="todo-container">
     <div class="todo-wrap">
-      <Header :addtodo="addtodo"/>
-      <List :todos="todos" :deletetodo="deletetodo"/>
+      <!-- <Header :addtodo="addtodo"/>  -->
+      <!-- <Header @addtodo="addtodo"/> -->
+      <Header ref="header"/> 
+      <List :todos="todos"/>
       <Footer :todos="todos" :checkAll="checkAll" :clearChecked="clearChecked"/>
     </div>
   </div>
@@ -19,6 +21,44 @@ import Footer from '@/components/Footer.vue'
 import {saveTodos,getTodos} from './utils/storageUtils'
 //import * as storageUtils from './utils/storageUtils'
 export default {
+  data() {
+    return {
+      todos: [
+        // {id:1, title:'吃饭', complete:false},
+        // {id:2, title:'睡觉', complete:true},
+        // {id:3, title:'吃敲代码', complete:false}
+      ]
+    }
+  },
+  beforeCreate(){
+    /* 
+    Vue的原型对象只有一个
+    组件对象的原型是：每个组件对象都有自己的原型对象vm
+    可以在Vue的原型对象添加一个东西 ==> 所有组件对象可见
+    */
+    this.__proto__.aaa = 1  //在别的组件对象的原型对象找不到
+    this.__proto__.__proto__.bbb = 2  //在别的组件对象的原型对象可以找到
+  },
+  //异步读取localstorge的todos_key
+  mounted() {
+    //通过$vm绑定自定义事件监听
+    this.$globalEventBus.$on('deletetodo',this.deletetodo)
+
+    //给<Header/>组件对象绑定自定义事件监听
+    /* 要求：绑定自定义事件监听和分发事件的组件对象得是同一个 */
+    this.$refs.header.$on("addtodo",this.addtodo)
+
+    setTimeout(() => {
+      // this.todos = JSON.parse(localStorage.getItem('todos_key')) || [] //如果没有存在之，返回的null
+      //this.todos = JSON.parse(localStorage.getItem('todos_key') || '[]')  //如果没有存在之，返回的null
+      this.todos = getTodos()
+    }, 1000)
+  },
+  beforeDestroy(){
+    //解绑自定义事件监听
+    this.$refs.header.$off('addtodo')
+    this.$globalEventBus.$off('deletetodo')
+  },
   methods: {  //所有的方法都会成为组件对象的方法
     addtodo(value){
       this.todos.unshift(value)
@@ -36,28 +76,6 @@ export default {
       this.todos = this.todos.filter(todo => todo.complete !== true)
     }
   },
-  data() {
-    return {
-      todos: [
-        // {id:1, title:'吃饭', complete:false},
-        // {id:2, title:'睡觉', complete:true},
-        // {id:3, title:'吃敲代码', complete:false}
-      ]
-    }
-  },
-  components:{
-    Header,
-    List,
-    Footer
-  },
-  //异步读取localstorge的todos_key
-  mounted() {
-    setTimeout(() => {
-      // this.todos = JSON.parse(localStorage.getItem('todos_key')) || [] //如果没有存在之，返回的null
-      //this.todos = JSON.parse(localStorage.getItem('todos_key') || '[]')  //如果没有存在之，返回的null
-      this.todos = getTodos()
-    }, 1000)
-  },
   watch: {
     todos: {
 /*       handler(value){  //value是todos改变后最新的值
@@ -68,7 +86,12 @@ export default {
       handler: saveTodos,
       deep: true //深度监视
     }
-  }
+  },
+  components:{
+    Header,
+    List,
+    Footer
+  },
 }
 </script>
 
