@@ -6,7 +6,17 @@
       <!-- <Header @addtodo="addtodo"/> -->
       <Header ref="header"/> 
       <List :todos="todos"/>
-      <Footer :todos="todos" :checkAll="checkAll" :clearChecked="clearChecked"/>
+      <Footer :todos="todos" :checkAll="checkAll" :clearChecked="clearChecked">
+        <!-- 插槽内容是在父组件中解析好后再传递子组件 -->
+        <button slot="right" v-if="completeSize>0" @click="clearChecked" class="btn btn-danger">清除已完成任务</button>
+        <template slot="middle">
+          <span>
+            <span>已完成{{completeSize}}</span> / 全部{{todos.length}}
+          </span>
+        </template>
+        <input type="checkbox" v-model="isCheckAll"/> <!-- 默认插槽 -->
+
+      </Footer>
     </div>
   </div>
 
@@ -28,6 +38,22 @@ export default {
         // {id:2, title:'睡觉', complete:true},
         // {id:3, title:'吃敲代码', complete:false}
       ]
+    }
+  },
+  computed: {
+    //计算已选中的项
+    completeSize(){
+      //reduce((pre,cur,index,array) => {}) :根据数组进行（统计/累加）处理
+      return this.todos.reduce((pretotal,todo) => pretotal+ (todo.complete ? 1 : 0),0)
+    },
+    //全选/与全不选
+    isCheckAll:{
+      get(){
+        return this.todos.length === this.completeSize //不能直接调用completeSize() 
+      },
+      set(value) { //value代表当前勾选的状态
+        this.checkAll(value)
+      }
     }
   },
   beforeCreate(){
@@ -69,6 +95,7 @@ export default {
     },
     //全选和全不选
     checkAll(isCheck){
+      console.log(this.todos[0])
       this.todos.forEach(todo => todo.complete = isCheck)
     },
     //删除已选中的

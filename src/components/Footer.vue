@@ -1,12 +1,18 @@
 <template>
   <div class="todo-footer">
     <label>
-      <input type="checkbox" v-model="isCheckAll"/>
+      <!-- <input type="checkbox" v-model="isCheckAll"/> -->
+      <slot></slot>  <!-- 默认插槽 -->
     </label>
-    <span>
+
+    <slot name="middle"></slot>  <!-- 命名插槽 -->
+<!--     <span>
       <span>已完成{{completeSize}}</span> / 全部{{todos.length}}
-    </span>
-    <button v-if="completeSize>0" @click="clearChecked" class="btn btn-danger">清除已完成任务</button>
+    </span> -->
+
+    <slot name="right"></slot>  <!-- 命名插槽 -->
+    <!-- <button v-if="completeSize>0" @click="clearChecked" class="btn btn-danger">清除已完成任务</button> -->
+
   </div>
 </template>
 
@@ -18,8 +24,8 @@
 3.computed: 根据已有的data或props数据进行计算产生的数据
 */
 export default {
-    props:['todos','checkAll','clearChecked'],
-    computed: {
+    //props:['todos','checkAll','clearChecked'],
+/*     computed: {
       //计算已选中的项
       completeSize(){
         //reduce((pre,cur,index,array) => {}) :根据数组进行（统计/累加）处理
@@ -34,7 +40,7 @@ export default {
           this.checkAll(value)
         }
       }
-    }
+    } */
   }
 
 </script>
