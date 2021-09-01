@@ -31,7 +31,7 @@ export default {
       const todo = {
         id:Date.now,
         title,
-        complate:false
+        complete:false
       }
       //调用父组件的方法
       //this.addtodo(todo)
