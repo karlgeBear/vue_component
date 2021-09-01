@@ -5,7 +5,7 @@
       <slot></slot>  <!-- 默认插槽 -->
     </label>
 
-    <slot name="middle"></slot>  <!-- 命名插槽 -->
+    <slot name="middle"></slot>  <!-- 命名插槽  -->
 <!--     <span>
       <span>已完成{{completeSize}}</span> / 全部{{todos.length}}
     </span> -->
