@@ -2,7 +2,7 @@
   <div class="todo-footer">
     <label>
       <!-- <input type="checkbox" v-model="isCheckAll"/> -->
-      <slot></slot>  <!-- 默认插槽 -->
+      <slot></slot>  <!-- 默认插槽  -->
     </label>
 
     <slot name="middle"></slot>  <!-- 命名插槽  -->
