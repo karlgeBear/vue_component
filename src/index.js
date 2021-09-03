@@ -8,5 +8,8 @@ Vue.use(VueResource) //所有组件对象都有了一个属性$http对象（此�
 Vue.config.productionTip = false
 new Vue({
   el: "#root",
-  render: h => h(App)
+  render: h => h(App),
+  beforeCreate(){ //尽早时间保存当前的vm，作为全局事件总线对象
+    Vue.prototype.$globalEventBus = this
+  }
 })
