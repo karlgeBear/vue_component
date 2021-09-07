@@ -39,7 +39,13 @@ module.exports = {
         use: {
             loader: 'babel-loader',
             options: {
-                presets: ['@babel/preset-env'] //预设包含多个常用插件包的一个大包
+                presets: ['@babel/preset-env'], //预设包含多个常用插件包的一个大包
+                plugins: [
+                  ["component",{  //babel-plugin-component(按需引入)的简写 
+                      "libraryName": "mint-ui", //针对mint-ui库实现按需引入
+                      "style": true  //自动打包对应的css
+                  }]
+                ]
             }
         }
       },
