@@ -8,7 +8,7 @@ Vue.use(VueResource) //所有组件对象都有了一个属性$http对象（此�
 Vue.config.productionTip = false
 new Vue({
   el: "#root",
-  render: h => h(App),
+  render: h => h(App),  //渲染函数接收一个 createElement 方法作为第一个参数用来创建 VNode(创建DOM节点，插入html)
   beforeCreate(){ //尽早时间保存当前的vm，作为全局事件总线对象
     Vue.prototype.$globalEventBus = this
   }
