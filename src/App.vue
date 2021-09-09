@@ -1,28 +1,37 @@
 <template>
   <div>
-    <mt-button type="danger" style="width:100%" @click="test">测试Mint-ui</mt-button>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <div class="page-header">
+          <h2>Router Basic - 01</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-2">
+        <div class="list-group">
+          <!-- 路由链接 -->
+          <router-link class="list-group-item" to="/about">About</router-link>
+          <router-link class="list-group-item" to="/home">Home</router-link>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="panel">
+          <div class="panel-body">
+            <!-- 在此显示当前路由组件 -->
+            <!-- 当前: 与请求的路径匹配的路由 -->
+             <!-- 对指定的路由组件不做缓存处理 -->
+            <router-view></router-view> <!-- 内部会将接收的属性原样传递给管理的路由组件对象 -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import {Toast} from 'mint-ui';
-  import { MessageBox } from 'mint-ui';
 export default {
-  methods:{
-    test(){
-      //alert('测试Mint-ui')
-      // Toast({   //text
-      //   message: 'Upload Complete',  //输入的文本
-      //   position: 'bottom',  //显示在页面的底部
-      //   duration: 5000    //在页面显示时长为5秒
-      // })
-      MessageBox({  //confirm(true)/alert(false)
-        title: 'Notice',   //显示的标题
-        message: 'Are you sure?',  //
-        showCancelButton: false
-      })
-    }
-  }
+
 };
 </script>
 
