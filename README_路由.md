@@ -1,5 +1,10 @@
 ## 1. vue-router
-    是用来实现SPA的vue插件
+    是用来实现SPA(路由控制和视图转换框架)的vue插件
+* 下载：yarn add vue-router
+* 简单理解：适用于单页面的开发，
+* 简单使用：声明vue插件vue-router，创建路由器，配置路由（path和component），router-link点击跳转 ---> router-view显示内容
+* 特别注意：有两种模式：history和hash（mode="history || hash"）
+    
     
 ## 2. vue-router的基本使用
     1). 创建路由器: router/index.js
@@ -19,7 +24,7 @@
     2). 注册路由器: main.js
         import router from './router'
         new Vue({
-          router
+          router  //所有组件都能通过$router属性看到router对象  / 所有的组件都有了代表当前路由的data数据：$route
         })
     3). 使用路由组件标签:
         <router-link to="/xxx">Go to XXX</router-link>  // 可以不使用
@@ -61,9 +66,9 @@
         <router-link to="{name: 'news', params: {id: 1, title: 'abc'}}">
         router.push({name: 'news', params: {id: 1, title: 'abc'}})
 
-## 6. 缓存路由组件
+## 6. 缓存路由组件(keep-alive是vue的内置组件)
     路由组件对象默认的生命周期: 被切换时就会死亡, 切换回来时重新创建
-    <keep-alive exlude="A,B">
+    <keep-alive exlude="A,B"> //匹配A和B都不会被缓存，不写则会被缓存
       <router-view></router-view>
     </keep-alive>
 

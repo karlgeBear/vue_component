@@ -19,8 +19,9 @@ module.exports = {
   entry: './src/index.js',//入口
   //出口
   output: {
-    path: path.resolve('dist'),
-    filename: './js/[name].index.js',  //打包后的路径和名字
+    path: path.resolve(__dirname,'dist'),
+    publicPath: '/',  //引入打包文件的路径左侧以 / 开头
+    filename: 'js/[name].index.js',  //打包后的路径和名字
     assetModuleFilename: 'images/[hash][ext][query]'
   },
   //模式
@@ -102,8 +103,21 @@ module.exports = {
         pathRewrite: { '^/api': '' },  //在转发请求前去除路径中/3000  
         changeOrigin: true  //支持协议名的跨域
       }
-    }
+    },
+    historyApiFallback: true, //任意的404响应api都被替代为index.html
   },
+  /* 
+  1. 请求资源有对应路径
+      http://localhost:3000/ ==> index.html
+      http://localhost:3000/js/main.index.js  ==> main.index.js
+  2. 请求的路径与代理服务器监视的路径匹配
+     由代理服务器转发请求，得到资源后返回
+  3. 其它所有的请求(404)
+      返回index.html页面，请求的path部分会被当做前台路径处理，从而显示对应的路由组件页面
+  */
+
+  //开启source-map调试
+  devtool: 'source-map',
   //模块引入解析
   resolve: {
     /* 
@@ -116,5 +130,4 @@ module.exports = {
     },
     extensions: ['.js','.vue'],//指定那些后缀的模块可以省略后缀
   },
-  devtool: 'source-map'
 }
