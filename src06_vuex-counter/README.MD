@@ -51,8 +51,8 @@
         state: 包含最新状态数据的对象
         getters: 包含getter计算属性的对象
     更新数据的方法
-        dispatch(): 分发调用action
-        commit(): 提交调用mutation
+        dispatch('actionName',data): 分发调用action
+        commit('mutationName',data): 提交调用mutation
 
 # 3. 使用vuex
 ## 1). 创建并向外暴露store对象
