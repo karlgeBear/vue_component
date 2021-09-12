@@ -16,7 +16,7 @@
 store对象
   1.state：包含所有state数据的对象
   2.getters：包含所有getter计算属性的对象
-  3.dispatch(mutationName, data)
+  3.dispatch(ActionName, data)
   4.commit(mutationName, data)
 */
 
