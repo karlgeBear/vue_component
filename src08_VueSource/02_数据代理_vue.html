@@ -5,7 +5,21 @@
   <title>02_数据代理_vue</title>
 </head>
 <body>
+<div id="test"></div>
 
+<script src="./js/vue.js"></script>
+<script type="text/javascript">
+  const vm = new Vue({
+    data:{
+      name: 'Bom'
+    }
+  })
+  console.log(vm)
+  console.log(vm.name)  //Bom（代理读）
 
+  vm.name = 'Tom'  //（代理写）
+  console.log(vm._data.name)  //Tom
+  console.log(vm.name)  //Tom
+</script>
 </body>
 </html>
