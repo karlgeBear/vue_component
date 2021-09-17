@@ -5,6 +5,23 @@
   <title>03_模板解析_表达式_vue</title>
 </head>
 <body>
-
+  <div id="test">
+    <p>{{name}}</p>  <!-- textNode.textContent = value -->
+    <p v-html="msg">{{msg}}</p>
+  </div>
+<script src="./js/mvvm/compile.js"></script>
+<script src="./js/mvvm/mvvm.js"></script>
+<script src="./js/mvvm/observer.js"></script>
+<script src="./js/mvvm/watcher.js"></script>
+<script type="text/javascript">
+debugger
+  const vm = new MVVM({
+    el: '#test',
+    data:{
+      name: 'Aily',
+      msg: '<h5>我是v-html</h5>'
+    }
+  })
+</script>
 </body>
 </html>

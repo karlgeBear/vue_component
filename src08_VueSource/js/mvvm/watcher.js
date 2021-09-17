@@ -3,6 +3,7 @@ function Watcher(vm, exp, cb) {
     this.vm = vm;
     this.exp = exp;
     this.depIds = {};
+    // 读取当前表达式对应的属性值
     this.value = this.get();
 }
 
@@ -15,6 +16,7 @@ Watcher.prototype = {
         var oldVal = this.value;
         if (value !== oldVal) {
             this.value = value;
+            // 调用绑定的更新节点的回调函数
             this.cb.call(this.vm, value, oldVal);
         }
     },
@@ -33,13 +35,19 @@ Watcher.prototype = {
         // 这一步是在 this.get() --> this.getVMVal() 里面完成，forEach时会从父级开始取值，间接调用了它的getter
         // 触发了addDep(), 在整个forEach过程，当前wacher都会加入到每个父级过程属性的dep
         // 例如：当前watcher的是'child.child.name', 那么child, child.child, child.child.name这三个属性的dep都会加入当前watcher
+
+        // 判断watch与dep的关系是否已经建立过
         if (!this.depIds.hasOwnProperty(dep.id)) {
+            // 将watch添加dep中，建立dep到watch的关系
             dep.addSub(this);
+            // 将dep添加到watch中，建立watch到dep的关系
             this.depIds[dep.id] = dep;
         }
     },
     get: function() {
+        // 将当前watch对象挂到Dep上
         Dep.target = this;
+        // 读取表达式对应的属性值 ==> 调用对应的getter方法
         var value = this.getVMVal();
         Dep.target = null;
         return value;
