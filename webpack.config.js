@@ -124,10 +124,11 @@ module.exports = {
     1.简化模块路径
     2.加快打包速度
     */
+    extensions: ['.js','.vue','json'],//指定那些后缀的模块可以省略后缀
     alias: {   //模块路径别名
-      '@': resolve('src'),
-      'vue$': 'vue/dist/vue.esm.js'  //表示精准匹配
-    },
-    extensions: ['.js','.vue'],//指定那些后缀的模块可以省略后缀
+      '@': path.resolve(__dirname,'src'),
+      'vue$': 'vue/dist/vue.esm.js',  //表示精准匹配  带vue编译器
+      'components': path.resolve(__dirname, 'src/components')
+    }
   },
 }
