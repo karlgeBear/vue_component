@@ -127,12 +127,19 @@ var compileUtil = {
     },
     /* 编译v-model */
     model: function(node, vm, exp) {
+        /* 
+        1.在内存初始更新节点
+        2.创建watcher，用于input的更新
+        */
         this.bind(node, vm, exp, 'model');
 
         var me = this,
             val = this._getVMVal(vm, exp);
+            // 给当前元素绑定事件监听
         node.addEventListener('input', function(e) {
+            // 得到输入的最新值
             var newValue = e.target.value;
+            // 将最新值保存在表达式在data中对应的属性上 ==> 触发绑定的流程
             if (val === newValue) {
                 return;
             }
