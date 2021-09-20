@@ -67,6 +67,7 @@
         router.push({name: 'news', params: {id: 1, title: 'abc'}})
 
 ## 6. 缓存路由组件(keep-alive是vue的内置组件)
+    实现场景：在A页面浏览且操作,接着跳转到B页面浏览且操作，<font color='red'>回退到A页面时，要想实现使A页面停留在之前的操作，则需要此缓存处理</font>
     路由组件对象默认的生命周期: 被切换时就会死亡, 切换回来时重新创建
     <keep-alive exlude="A,B"> //匹配A和B都不会被缓存，不写则会被缓存
       <router-view></router-view>
