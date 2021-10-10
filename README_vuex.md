@@ -54,6 +54,19 @@
         commit(): 提交调用mutation
 
 # 3. 使用vuex
+## 0). vuex编码
+    创建所有相关的模块： vuex/store|state|mutations|actions|getters|mutation-types
+    设计state：从后台获取的数据
+    实现actions：
+        定义异步actions：async/await
+        流程：发ajax获取数据，commit给mutation
+    实现mutations：定义直接更新state数据的函数
+    实现store.js: 创建store对象
+    配置store：在入口文件mian.js导入store.js,配置store（使所有组件都可以看到 $store）
+    组件中：
+        分发：this.$store.dispatch('actionName', data)
+        提交：this.$store.commit('mutationName', data)
+        读取：mapState() / mapGetters()
 ## 1). 创建并向外暴露store对象
     export default new Vuex.Store({
       state,
@@ -77,7 +90,7 @@
     import {mapState, mapGetters} from 'vuex'
     export default {
       computed: (
-        ...mapState(['xxx']),
+        ...mapState(['xxx']),  //等同于{xxx:function() { return 'xxx'}}
         ...mapGetters(['yyy'])
       )
       methods: {
