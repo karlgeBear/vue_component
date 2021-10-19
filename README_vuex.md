@@ -29,6 +29,17 @@
         commit('yyy', {data1})
       }
     }
+    - {commit,state} 怎么来的？
+    - store的action函数会接收一个对象，action函数可以接收一个与store实例具有相同方法的属性context，这个属性中包括下面几部分：
+      ```
+       context:{
+		state,   等同于store.$state，若在模块中则为局部状态
+		rootState,   等同于store.$state,只存在模块中
+		commit,   等同于store.$commit
+		dispatch,   等同于store.$dispatch
+		getters   等同于store.$getters
+        }
+      ```
 
 ## 4). getters
     包含多个计算属性(getter)的对象
