@@ -27,7 +27,7 @@
           router  //所有组件都能通过$router属性看到router对象  / 所有的组件都有了代表当前路由的data数据：$route
         })
     3). 使用路由组件标签:
-        <router-link to="/xxx">Go to XXX</router-link>  // 可以不使用
+        <router-link to="/xxx">Go to XXX</router-link>  // 可以不使用（router-link 转化时一个<a>标签，如果要为其它标签则可以设置 tag = "标签名"）
         <router-view></router-view>  // 必须使用
     4). 2个对象
         $router: 代表路由器对象, 包含一些实现路由跳转/导航的方法: push()/replace()/back()
