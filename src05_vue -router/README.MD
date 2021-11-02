@@ -51,8 +51,16 @@
     ]
 
 ## 4. 向路由组件传递数据
-    params/query: <router-link to="/home/news/123/abc?zzz=1234">
-    将请求参数映射成props: props=true | props: route => ({id: route.params.id})
+    组件传递参数：params/query: <router-link to="/home/news/123/abc?zzz=1234">
+    路由接收参数：将请求参数映射成props: props=true | props: route => ({id: route.params.id}) 
+    ```
+    {
+        name:news
+        path:/home/news/:id
+        props: true //将prams参数转化为标签属性传递给路由组件，路由组件可用porps:[] || {} 接收，并且在模板上使用
+        //props: route => ({id: route.params.id})
+    }
+    ```
     变相props: <router-view msg='abc'>
 
 ## 5. 动态路由与路由别名
