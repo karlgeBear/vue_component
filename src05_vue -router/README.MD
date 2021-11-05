@@ -39,16 +39,22 @@
     3). 使用<router-view/>显示当前路由组件
 
 ## 4. 嵌套路由
-    children: [
-        {
-          path: '/home/news/:id/:title',
-          component: news
-        },
-        {
-          path: 'message',
-          component: message
-        }
-    ]
+    {
+        path:'/home'
+        component: home
+        children: [
+          {
+            path: '/home/news/:id/:title',
+            component: news
+          },
+          {
+            path: 'message',
+            component: message
+          }
+        ]
+    }
+    * 当有子路由, 子路由的path有两种取法：1./home/message 、 2.message
+    * 注意：当父组件/home:id 时，子路由的path取第一种，以便于路由导航：如：this.$router.push(`/home/${id}/message`)  ==>  /home/1/message
 
 ## 4. 向路由组件传递数据
     组件传递参数：params/query: <router-link to="/home/news/123/abc?zzz=1234">
